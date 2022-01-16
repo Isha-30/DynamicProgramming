@@ -23,7 +23,7 @@ public class Main {
         int n1 = countPairs(n-1, qb);
         int n2 = countPairs(n-2, qb);
         int n3 = countPairs(n-3, qb);
-        int paths = n1 + n2 + n3;
+        int paths = n1+n2+n3;
 
         qb[n] = paths;
 
