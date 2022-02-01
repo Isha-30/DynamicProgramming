@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int c = sc.nextInt();
+        int[][] arr = new int[n][c];
+
+        for(int i = 0; i<n; i++){
+            for(int j = 0; j<c; j++){
+                arr[i][j] = sc.nextInt();
+            }
+        }
+
+        int[][] dp = new int[arr.length][arr[0].length];
+        int min= Integer.MAX_VALUE;
+        int smin = Integer.MAX_VALUE;
+
+        for(int j = 0; j<arr[0].length; j++){
+            dp[0][j] = arr[0][j];
+
+            if(arr[0][j] <= min){
+                smin = min;
+                min = arr[0][j];
+            }else if(arr[0][j] <= smin){
+                smin = arr[0][j];
+            }
+        }
+
+        for(int i = 1; i<dp.length; i++){
+            int nmin = Integer.MAX_VALUE;
+            int nSmin = Integer.MAX_VALUE;
+            for(int j = 0; j<dp[0].length; j++){
+                if(dp[i-1][j] == min){
+                    dp[i][j] = arr[i][j] + smin;
+                }else{
+                    dp[i][j] = arr[i][j] + min;
+                }
+
+                if(dp[i][j] <= nmin){
+                    nSmin = nmin;
+                    nmin = dp[i][j];
+                }else if(dp[i][j] <= nSmin){
+                    nSmin = dp[i][j];
+                }
+            }
+            min = nmin;
+            smin = nSmin;
+        }
+
+        System.out.println(min);
+    }
+}
